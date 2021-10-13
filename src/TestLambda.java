@@ -9,6 +9,7 @@ import org.junit.Test;
 public class TestLambda {
 
 	@Test
+	//匿名函數
 	public void test() {
 		Comparator<Integer> com = new Comparator<Integer>() {
 			
@@ -22,6 +23,7 @@ public class TestLambda {
 	}
 	
 	@Test
+	//java8 箭頭函數
 	public void test2() {
 		Comparator<Integer> com =(x,y)-> Integer.compare(x, y);
 		TreeSet<Integer> ts = new TreeSet<>(com);
@@ -37,16 +39,7 @@ public class TestLambda {
 
 			);
 	
-	@Test
-	public void test3() {
-		List<Employee> emps = filterEmployees(employees);
-		emps.forEach(System.out::println);
-		
-		for(Employee r:emps) {
-			System.out.println(r.getName());
-		}
-	}
-	
+	//java 過濾方法
 	public List<Employee> filterEmployees(List<Employee> list){
 		List<Employee> emps = new ArrayList<>();
 		for(Employee e:list) {
@@ -58,15 +51,18 @@ public class TestLambda {
 	}
 	
 	@Test
-	//優化方式 策略設計模式
-	public void test4() {
-		List<Employee> emps = filterEmployeeByInterface(employees, new TestInterfaceAge());
+	//單純的使用java 方法進行過濾
+	public void test3() {
+		List<Employee> emps = filterEmployees(employees);
+		emps.forEach(System.out::println);
 		
 		for(Employee r:emps) {
 			System.out.println(r.getName());
 		}
 	}
 	
+
+	//策略設計模式 過濾方法 使用介面
 	public List<Employee> filterEmployeeByInterface(List<Employee> list, TestInterface<Employee> mp){
 		
 		List<Employee> emps = new ArrayList<Employee>();
@@ -78,6 +74,18 @@ public class TestLambda {
 		return emps;
 		
 	}
+	
+	@Test
+	//優化方式 策略設計模式
+	public void test4() {
+		List<Employee> emps = filterEmployeeByInterface(employees, new TestInterfaceSalary());
+		
+		for(Employee r:emps) {
+			System.out.println(r.getName());
+		}
+	}
+	
+
 	
 	@Test
 	//優化方式 匿名內部類
@@ -96,12 +104,22 @@ public class TestLambda {
 	}
 	
 	@Test
-	//優化方式 lambda
+	//優化方式 使用lambda 複寫函數
 	public void test6() {
 		List<Employee> emps = filterEmployeeByInterface(employees, (e)->e.getName().equals("張3"));
 		
 		emps.forEach(System.out::println);
 		}
+	
+	@Test
+	public void test71() {
+		Integer num =operation(23,x->x*x);
+		System.out.println(num);
+	}
+	
+	public Integer operation(Integer x,TestInterFace2 y) {
+		return y.operate(x);
+	}
 	
 	
 	@Test

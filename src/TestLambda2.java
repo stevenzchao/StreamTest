@@ -67,15 +67,7 @@ public class TestLambda2 {
 		System.out.println(com.compare(3, 1));
 	}
 	
-	@Test
-	public void test7() {
-		Integer num =operation(23,(x)->x*x);
-		System.out.println(num);
-	}
-	
-	public Integer operation(Integer x,TestInterFace2 y) {
-		return y.operate(x);
-	}
+
 
 
 }
